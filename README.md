@@ -73,7 +73,9 @@ Deze website kan automatisch worden gedeployed naar GitHub Pages wanneer je wijz
 2. Ga naar je repository op GitHub
 3. Ga naar "Settings" > "Pages"
 4. Bij "Source", selecteer "GitHub Actions"
-5. De eerste keer dat je naar de main branch pusht, zal GitHub Actions automatisch de website bouwen en deployen
-6. Na enkele minuten zal je website beschikbaar zijn op `https://[jouw-gebruikersnaam].github.io/[repository-naam]/`
+5. Ga naar "Settings" > "Actions" > "General"
+6. Onder "Workflow permissions", selecteer "Read and write permissions" en sla de wijzigingen op
+7. De eerste keer dat je naar de main branch pusht, zal GitHub Actions automatisch de website bouwen en deployen
+8. Na enkele minuten zal je website beschikbaar zijn op `https://[jouw-gebruikersnaam].github.io/[repository-naam]/`
 
-De workflow is al geconfigureerd in het bestand `.github/workflows/deploy.yml` en zal automatisch worden uitgevoerd wanneer je wijzigingen pusht naar de main branch.
+De workflow is al geconfigureerd in het bestand `.github/workflows/deploy.yml` en zal automatisch worden uitgevoerd wanneer je wijzigingen pusht naar de main branch. De workflow heeft schrijfrechten nodig om naar de gh-pages branch te kunnen pushen.
