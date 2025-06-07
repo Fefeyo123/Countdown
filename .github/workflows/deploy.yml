@@ -31,3 +31,4 @@ jobs:
         with:
           folder: .
           branch: gh-pages
+          clean-exclude: .nojekyll

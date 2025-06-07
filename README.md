@@ -61,9 +61,21 @@ npm run build
 ## Technologieën
 
 - HTML5
-- CSS3 (met animaties)
+- CSS3 (met geavanceerde animaties)
 - TypeScript
 - Node.js
+
+## Projectstructuur
+
+Het project is opgebouwd uit de volgende bestanden:
+
+- `index.html`: De hoofdpagina van de website
+- `src/index.ts`: De hoofdcode voor de countdown functionaliteit
+- `src/animations.ts`: Code voor animaties en visuele effecten
+- `src/styles.css`: Alle styling voor de website
+- `dist/`: Map met gecompileerde bestanden (wordt automatisch gegenereerd)
+- `.github/workflows/deploy.yml`: Configuratie voor automatische deployment naar GitHub Pages
+- `.nojekyll`: Leeg bestand dat voorkomt dat GitHub Pages de site verwerkt met Jekyll
 
 ## Deployment naar GitHub Pages
 
@@ -79,3 +91,21 @@ Deze website kan automatisch worden gedeployed naar GitHub Pages wanneer je wijz
 8. Na enkele minuten zal je website beschikbaar zijn op `https://[jouw-gebruikersnaam].github.io/[repository-naam]/`
 
 De workflow is al geconfigureerd in het bestand `.github/workflows/deploy.yml` en zal automatisch worden uitgevoerd wanneer je wijzigingen pusht naar de main branch. De workflow heeft schrijfrechten nodig om naar de gh-pages branch te kunnen pushen.
+
+### Troubleshooting GitHub Pages
+
+Als je website niet verschijnt na het deployen, controleer dan het volgende:
+
+1. Zorg ervoor dat er een `.nojekyll` bestand aanwezig is in de repository. Dit bestand voorkomt dat GitHub Pages de site verwerkt met Jekyll, wat problemen kan veroorzaken met JavaScript modules.
+
+2. Controleer de GitHub Actions workflow logs om te zien of de deployment succesvol was:
+   - Ga naar de "Actions" tab in je repository
+   - Klik op de laatste workflow run
+   - Controleer of alle stappen succesvol zijn afgerond
+
+3. Controleer de GitHub Pages instellingen:
+   - Ga naar "Settings" > "Pages"
+   - Controleer of de bron is ingesteld op "GitHub Actions"
+   - Als er een foutmelding is, volg dan de instructies om het probleem op te lossen
+
+4. Het kan tot 10 minuten duren voordat wijzigingen zichtbaar zijn op GitHub Pages, zelfs na een succesvolle deployment. Wees geduldig en ververs de pagina na enkele minuten.
