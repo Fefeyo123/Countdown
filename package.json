@@ -1,10 +1,12 @@
 {
   "name": "countdown",
   "version": "1.0.0",
-  "description": "",
+  "description": "Een aftelpagina voor wanneer we samen op kot gaan",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && npm run copy-css",
+    "copy-css": "cp src/styles.css dist/",
     "start": "npm run build && npx serve"
   },
   "dependencies": {},

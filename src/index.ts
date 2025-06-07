@@ -1,8 +1,8 @@
+// Import from animations
+import { celebrateTargetReached, isBrowser } from './animations.js';
+
 // Target date: September 1, 2025
 const targetDate = new Date('2025-09-01T00:00:00');
-
-// Check if code is running in a browser environment
-const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 
 // Variables for DOM elements
 let daysElement: HTMLElement | null = null;
@@ -10,6 +10,7 @@ let hoursElement: HTMLElement | null = null;
 let minutesElement: HTMLElement | null = null;
 let secondsElement: HTMLElement | null = null;
 let countdownInterval: number | null = null;
+let hasCelebrated = false;
 
 // Function to calculate time difference
 function calculateTimeDifference(): { days: number, hours: number, minutes: number, seconds: number, isPassed: boolean } {
@@ -35,6 +36,11 @@ function calculateTimeDifference(): { days: number, hours: number, minutes: numb
     };
 }
 
+// Function to add leading zeros to numbers less than 10
+function formatNumber(num: number): string {
+    return num < 10 ? `0${num}` : num.toString();
+}
+
 // Function to calculate and display the countdown
 function updateCountdown(): void {
     if (!isBrowser) {
@@ -47,19 +53,23 @@ function updateCountdown(): void {
     // Get time difference
     const time = calculateTimeDifference();
 
-    // Update the DOM elements
-    if (daysElement) daysElement.textContent = time.days.toString();
-    if (hoursElement) hoursElement.textContent = time.hours.toString();
-    if (minutesElement) minutesElement.textContent = time.minutes.toString();
-    if (secondsElement) secondsElement.textContent = time.seconds.toString();
+    // Update the DOM elements with formatted numbers
+    if (daysElement) daysElement.textContent = formatNumber(time.days);
+    if (hoursElement) hoursElement.textContent = formatNumber(time.hours);
+    if (minutesElement) minutesElement.textContent = formatNumber(time.minutes);
+    if (secondsElement) secondsElement.textContent = formatNumber(time.seconds);
 
     // Check if the target date has passed
-    if (time.isPassed) {
+    if (time.isPassed && !hasCelebrated) {
         // Update the message
         const messageElement = document.querySelector('.message') as HTMLElement;
         if (messageElement) {
             messageElement.textContent = 'We zijn samen op kot! ❤️';
         }
+
+        // Trigger celebration animation
+        celebrateTargetReached();
+        hasCelebrated = true;
 
         // Clear the interval
         if (countdownInterval) {
@@ -70,17 +80,20 @@ function updateCountdown(): void {
 
 // Initialize browser-specific elements and start countdown
 if (isBrowser) {
-    // Initialize DOM elements
-    daysElement = document.getElementById('days');
-    hoursElement = document.getElementById('hours');
-    minutesElement = document.getElementById('minutes');
-    secondsElement = document.getElementById('seconds');
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        // Initialize DOM elements
+        daysElement = document.getElementById('days');
+        hoursElement = document.getElementById('hours');
+        minutesElement = document.getElementById('minutes');
+        secondsElement = document.getElementById('seconds');
 
-    // Initial call to set the countdown values
-    updateCountdown();
+        // Initial call to set the countdown values
+        updateCountdown();
 
-    // Update the countdown every second
-    countdownInterval = setInterval(updateCountdown, 1000);
+        // Update the countdown every second
+        countdownInterval = setInterval(updateCountdown, 1000);
+    });
 } else {
     // For non-browser environments, just show the current countdown once
     updateCountdown();
